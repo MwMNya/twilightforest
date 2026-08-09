@@ -102,7 +102,7 @@ public class BlockTFMagicLogSpecial extends BlockTFMagicLog {
                 case 0 -> {
                     // tree of time effect
                     world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.click", 0.1F, 0.5F);
-                    doTreeOfTimeEffect(world, x, y, z, rand);
+                    //doTreeOfTimeEffect(world, x, y, z, rand);
                 }
                 case 1 ->
                     // tree of transformation effect
@@ -142,32 +142,32 @@ public class BlockTFMagicLogSpecial extends BlockTFMagicLog {
     /**
      * The tree of time adds extra ticks to blocks, so that they have twice the normal chance to get a random tick
      */
-    private void doTreeOfTimeEffect(World world, int x, int y, int z, Random rand) {
-        int numticks = 8 * 3 * this.tickRate(world);
-
-        for (int i = 0; i < numticks; i++) {
-            // find a nearby block, offset [-16, +16] on each axis (matches upstream timeCoreRange = 16)
-            int dx = rand.nextInt(33) - 16;
-            int dy = rand.nextInt(33) - 16;
-            int dz = rand.nextInt(33) - 16;
-
-            int targetBlockX = x + dx;
-            int targetBlockY = y + dy;
-            int targetBlockZ = z + dz;
-
-            // prevent chunk loads
-            if (!world.blockExists(targetBlockX, targetBlockY, targetBlockZ)) {
-                continue;
-            }
-
-            Block targetBlock = world.getBlock(targetBlockX, targetBlockY, targetBlockZ);
-
-            // give any randomly-ticking block an extra tick, unless pack-excluded (TimeCoreExcludedBlocks)
-            if (targetBlock.getTickRandomly() && !getExcludedBlocks().contains(targetBlock)) {
-                targetBlock.updateTick(world, targetBlockX, targetBlockY, targetBlockZ, rand);
-            }
-        }
-    }
+//    private void doTreeOfTimeEffect(World world, int x, int y, int z, Random rand) {
+//        int numticks = 8 * 3 * this.tickRate(world);
+//
+//        for (int i = 0; i < numticks; i++) {
+//            // find a nearby block, offset [-16, +16] on each axis (matches upstream timeCoreRange = 16)
+//            int dx = rand.nextInt(33) - 16;
+//            int dy = rand.nextInt(33) - 16;
+//            int dz = rand.nextInt(33) - 16;
+//
+//            int targetBlockX = x + dx;
+//            int targetBlockY = y + dy;
+//            int targetBlockZ = z + dz;
+//
+//            // prevent chunk loads
+//            if (!world.blockExists(targetBlockX, targetBlockY, targetBlockZ)) {
+//                continue;
+//            }
+//
+//            Block targetBlock = world.getBlock(targetBlockX, targetBlockY, targetBlockZ);
+//
+//            // give any randomly-ticking block an extra tick, unless pack-excluded (TimeCoreExcludedBlocks)
+//            if (targetBlock.getTickRandomly() && !getExcludedBlocks().contains(targetBlock)) {
+//                targetBlock.updateTick(world, targetBlockX, targetBlockY, targetBlockZ, rand);
+//            }
+//        }
+//    }
 
     /**
      * Resolve the configured exclusion names to Block instances once, then reuse. Done lazily because all blocks must
